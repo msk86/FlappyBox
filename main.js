@@ -17,10 +17,29 @@ var main_state = {
         // Function called after 'preload' to setup the game
         // Display the bird on the screen
         this.bird = this.game.add.sprite(100, 245, 'bird');
+
+        // Add gravity to the world
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        // Allow gravity on bird
+        this.game.physics.arcade.enable(this.bird);
+
+        // Add gravity to the bird to make it fall
+        this.bird.body.gravity.y = 1000;
+
+        // Call the 'jump' function when the space key is hit
+        var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        spaceKey.onDown.add(this.jump, this);
     },
 
     update: function() {
         // Function called 60 times per second
+    },
+
+    // Make the bird jump
+    jump: function() {
+        // Add a vertical velocity to the bird
+        this.bird.body.velocity.y = -350;
     }
 };
 

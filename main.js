@@ -34,12 +34,23 @@ var main_state = {
 
     update: function() {
         // Function called 60 times per second
+
+        // If the bird is out of the world (too high or too low), call the 'restart_game' function
+        if (this.bird.inWorld == false) {
+            this.restartGame();
+        }
     },
 
     // Make the bird jump
     jump: function() {
         // Add a vertical velocity to the bird
         this.bird.body.velocity.y = -350;
+    },
+
+    // Restart the game
+    restartGame: function() {
+        // Start the 'main' state, which restarts the game
+        this.game.state.start('main');
     }
 };
 

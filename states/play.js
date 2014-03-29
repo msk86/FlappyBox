@@ -1,24 +1,5 @@
-// Initialize Phaser, and creates a 400x490px game
-var game = new Phaser.Game(400, 490, Phaser.AUTO, 'game');
-
-// Creates a new 'main' state that will contain the game
-var main_state = {
-
-    preload: function() {
-        // Function called first to load all the assets
-        // Change the background color of the game
-        this.game.stage.backgroundColor = '#71c5cf';
-
-        // Load the bird sprite
-        this.game.load.image('bird', 'assets/bird.png');
-
-        // Load the pipe sprite
-        this.game.load.image('pipe', 'assets/pipe.png');
-
-        // Load the jump sound
-        this.game.load.audio('jump', 'assets/jump.wav');
-    },
-
+// Creates a new 'play' state that will contain the game
+var play_state = {
     create: function() {
         // Add gravity to the world
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -49,7 +30,7 @@ var main_state = {
 
         this.jumpSound = this.game.add.audio('jump');
 
-        this.score = 0;
+        window.score = 0;
         this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });
     },
 
@@ -102,11 +83,12 @@ var main_state = {
 
     // Restart the game
     restartGame: function() {
-        // Start the 'main' state, which restarts the game
-        this.game.state.start('main');
-
         // Stop timer when restart
         this.game.time.events.remove(this.timer);
+
+        // Go back to the 'menu' state
+        this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+        this.game.state.start('menu');
     },
 
     addOnePipe: function(x, y) {
@@ -126,8 +108,8 @@ var main_state = {
 
     addRowOfPipes: function() {
         if(this.pipes.getFirstAlive()) {
-            this.score += 1;
-            this.labelScore.text = this.score;
+            window.score += 1;
+            this.labelScore.text = window.score;
         }
 
         var hole = Math.floor(Math.random()*5)+1;
@@ -139,7 +121,3 @@ var main_state = {
         }
     }
 };
-
-// Add and start the 'main' state to start the game
-game.state.add('main', main_state);
-game.state.start('main');

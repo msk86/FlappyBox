@@ -24,6 +24,9 @@ var main_state = {
         // Display the bird on the screen
         this.bird = this.game.add.sprite(100, 245, 'bird');
 
+        // Change anchor of bird, make jumping looks better
+        this.bird.anchor.setTo(-0.2, 0.5);
+
         // Allow gravity on bird
         this.game.physics.arcade.enable(this.bird);
 

@@ -50,6 +50,11 @@ var main_state = {
             this.restartGame();
         }
 
+        // Change bird angle
+        if (this.bird.angle < 20) {
+            this.bird.angle += 1;
+        }
+
         // Collisions
         this.game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
     },
@@ -58,6 +63,8 @@ var main_state = {
     jump: function() {
         // Add a vertical velocity to the bird
         this.bird.body.velocity.y = -350;
+        // Simple angle change
+        this.bird.angle = -20;
     },
 
     // Restart the game

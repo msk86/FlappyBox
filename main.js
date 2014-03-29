@@ -17,12 +17,12 @@ var main_state = {
     },
 
     create: function() {
+        // Add gravity to the world
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
         // Function called after 'preload' to setup the game
         // Display the bird on the screen
         this.bird = this.game.add.sprite(100, 245, 'bird');
-
-        // Add gravity to the world
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // Allow gravity on bird
         this.game.physics.arcade.enable(this.bird);

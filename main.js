@@ -48,6 +48,9 @@ var main_state = {
         this.timer = this.game.time.events.loop(1500, this.addRowOfPipes, this);
 
         this.jumpSound = this.game.add.audio('jump');
+
+        this.score = 0;
+        this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#ffffff" });
     },
 
     update: function() {
@@ -122,6 +125,11 @@ var main_state = {
     },
 
     addRowOfPipes: function() {
+        if(this.pipes.getFirstAlive()) {
+            this.score += 1;
+            this.labelScore.text = this.score;
+        }
+
         var hole = Math.floor(Math.random()*5)+1;
 
         for (var i = 0; i < 8; i++) {

@@ -65,13 +65,7 @@ var main_state = {
         this.bird.body.velocity.y = -350;
         // Angle change
         // create an animation on the bird
-        var animation = this.game.add.tween(this.bird);
-
-        // Set the animation to change the angle of the sprite to -20° in 100 milliseconds
-        animation.to({angle: -20}, 100);
-
-        // And start the animation
-        animation.start();
+        this.game.add.tween(this.bird).to({angle: -20}, 100).start();
     },
 
     // Restart the game

@@ -14,6 +14,9 @@ var main_state = {
 
         // Load the pipe sprite
         this.game.load.image('pipe', 'assets/pipe.png');
+
+        // Load the jump sound
+        this.game.load.audio('jump', 'assets/jump.wav');
     },
 
     create: function() {
@@ -43,6 +46,8 @@ var main_state = {
         this.game.physics.arcade.enable(this.pipes);
 
         this.timer = this.game.time.events.loop(1500, this.addRowOfPipes, this);
+
+        this.jumpSound = this.game.add.audio('jump');
     },
 
     update: function() {
@@ -70,6 +75,8 @@ var main_state = {
         // Angle change
         // create an animation on the bird
         this.game.add.tween(this.bird).to({angle: -20}, 100).start();
+
+        this.jumpSound.play();
     },
 
     // Hit pipe

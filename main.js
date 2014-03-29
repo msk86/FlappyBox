@@ -59,16 +59,35 @@ var main_state = {
         }
 
         // Collisions
-        this.game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+        this.game.physics.arcade.overlap(this.bird, this.pipes, this.hitPipe, null, this);
     },
 
     // Make the bird jump
     jump: function() {
+        if (this.bird.alive == false) return;
         // Add a vertical velocity to the bird
         this.bird.body.velocity.y = -350;
         // Angle change
         // create an animation on the bird
         this.game.add.tween(this.bird).to({angle: -20}, 100).start();
+    },
+
+    // Hit pipe
+    hitPipe: function() {
+        // If the bird has already hit a pipe, we have nothing to do
+        if (this.bird.alive == false)
+            return;
+
+        // Set the alive property of the bird to false
+        this.bird.alive = false;
+
+        // Prevent new pipes from appearing
+        this.game.time.events.remove(this.timer);
+
+        // Go through all the pipes, and stop their movement
+        this.pipes.forEachAlive(function(p){
+            p.body.velocity.x = 0;
+        }, this);
     },
 
     // Restart the game

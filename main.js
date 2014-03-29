@@ -63,8 +63,15 @@ var main_state = {
     jump: function() {
         // Add a vertical velocity to the bird
         this.bird.body.velocity.y = -350;
-        // Simple angle change
-        this.bird.angle = -20;
+        // Angle change
+        // create an animation on the bird
+        var animation = this.game.add.tween(this.bird);
+
+        // Set the animation to change the angle of the sprite to -20° in 100 milliseconds
+        animation.to({angle: -20}, 100);
+
+        // And start the animation
+        animation.start();
     },
 
     // Restart the game
